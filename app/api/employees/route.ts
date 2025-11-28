@@ -17,18 +17,19 @@ export const POST = async (req: Request) => {
   try {
     const body = req.json();
     const res = await query(
-      "INSERT INTO employees (id, firstname, lastname, age, gender, department, position, salary, hiredate) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
-      [
-        "33",
-        "Ariuntuguldur",
-        "Nyamdavaa",
-        "17",
-        "male",
-        "engineering",
-        "developer",
-        5000,
-        "2007-1-25",
-      ]
+        "CREATE TABLE articles"
+    //   "INSERT INTO employees (id, firstname, lastname, age, gender, department, position, salary, hiredate) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+    //   [
+    //     "33",
+    //     "Ariuntuguldur",
+    //     "Nyamdavaa",
+    //     "17",
+    //     "male",
+    //     "engineering",
+    //     "developer",
+    //     5000,
+    //     "2007-1-25",
+    //   ]
     );
     console.log("RESPONSE: ", res);
     return NextResponse.json(res.rows);
@@ -53,7 +54,7 @@ export const PATCH = async (req: Request) => {
 export const DELETE = async (req: Request) => {
   try {
     const body = req.json();
-    const res = await query("DELETE FROM employees WHERE id=1");
+    const res = await query("DELETE FROM employees WHERE id=2");
     console.log("RESPONSE: ", res);
     return NextResponse.json(res);
   } catch (error) {
