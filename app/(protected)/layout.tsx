@@ -14,15 +14,12 @@ export default function ProtectedLayout({
     >
       <SidebarProvider defaultOpen={false}>
         <div className="flex flex-col h-screen">
-          <div className="flex justify-between">
+          <div className="flex w-full justify-between">
             <Navbar />
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
           </div>
-          <div className="flex flex-1">
+          <div className="flex w-full h-screen justify-center items-center ">
             <HistorySidebar />
-            <main className="flex-1 p-4">{children}</main>
+            <main className="ml-[650px]">{children}</main>
           </div>
         </div>
       </SidebarProvider>

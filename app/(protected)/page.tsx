@@ -1,8 +1,4 @@
-"use client";
-
 import ArticleGenerator from "@/components/ArticleGenerator";
-import axios from "axios";
-import { useEffect, useState } from "react";
 
 export default function Home() {
   // const [employee, setEmployee] = useState<any[]>([]);
@@ -20,7 +16,7 @@ export default function Home() {
   // }, []);
 
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    <div>
       <ArticleGenerator />
     </div>
     //  <div className="flex gap-5">
