@@ -8,15 +8,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model employees {
-  id         Int       @id
-  firstname  String?   @db.VarChar(50)
-  lastname   String?   @db.VarChar(50)
-  age        Int?
-  gender     String?   @db.VarChar(10)
-  department String?   @db.VarChar(50)
-  position   String?   @db.VarChar(100)
-  salary     Decimal?  @db.Decimal(10, 2)
-  hiredate   DateTime? @db.Date
-  isactive   Boolean?
+model articles {
+  id        Int       @id @default(autoincrement())
+  title     String?   @db.VarChar(100)
+  content   String?
+  summary   String?
+  createdat DateTime? @default(now()) @db.Timestamp(6)
+  updatedat DateTime? @default(now()) @db.Timestamp(6)
 }
