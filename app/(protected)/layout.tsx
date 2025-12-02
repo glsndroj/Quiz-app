@@ -13,13 +13,13 @@ export default function ProtectedLayout({
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <SidebarProvider defaultOpen={false}>
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-screen w-full justify-center items-center">
           <div className="flex w-full justify-between">
             <Navbar />
           </div>
           <div className="flex w-full h-screen justify-center items-center ">
             <HistorySidebar />
-            <main className="ml-[650px]">{children}</main>
+            <main>{children}</main>
           </div>
         </div>
       </SidebarProvider>
