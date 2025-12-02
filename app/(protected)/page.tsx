@@ -4,18 +4,18 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Home() {
-  const [employee, setEmployee] = useState<any[]>([]);
+  const [article, setArticle] = useState<any[]>([]);
 
   useEffect(() => {
-    const getEmployee = async () => {
+    const getArticle = async () => {
       try {
         const res = await axios.get("http://localhost:3000/api/articles");
-        setEmployee(res.data);
+        setArticle(res.data);
       } catch (error) {
         console.log("error", error);
       }
     };
-    getEmployee();
+    getArticle();
   }, []);
 
   return (
@@ -24,7 +24,7 @@ export default function Home() {
         <ArticleGenerator />
       </div>
       <div className="flex gap-5">
-        {employee.map((e, i) => {
+        {article.map((e, i) => {
           return (
             <div key={i}>
               <h1>{e.title}</h1>
