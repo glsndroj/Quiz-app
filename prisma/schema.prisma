@@ -8,11 +8,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model articles {
+model article {
   id        Int       @id @default(autoincrement())
   title     String?   @db.VarChar(100)
   content   String?
   summary   String?
   createdat DateTime? @default(now()) @db.Timestamp(6)
   updatedat DateTime? @default(now()) @db.Timestamp(6)
+  @@map("articles")
 }
+
+

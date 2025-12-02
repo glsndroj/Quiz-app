@@ -390,7 +390,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  employees: 'employees'
+  article: 'article'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -406,81 +406,81 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "employees"
+    modelProps: "article"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
-    employees: {
-      payload: Prisma.$employeesPayload<ExtArgs>
-      fields: Prisma.employeesFieldRefs
+    article: {
+      payload: Prisma.$articlePayload<ExtArgs>
+      fields: Prisma.articleFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.employeesFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$employeesPayload> | null
+          args: Prisma.articleFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.employeesFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$employeesPayload>
+          args: Prisma.articleFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>
         }
         findFirst: {
-          args: Prisma.employeesFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$employeesPayload> | null
+          args: Prisma.articleFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.employeesFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$employeesPayload>
+          args: Prisma.articleFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>
         }
         findMany: {
-          args: Prisma.employeesFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$employeesPayload>[]
+          args: Prisma.articleFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>[]
         }
         create: {
-          args: Prisma.employeesCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$employeesPayload>
+          args: Prisma.articleCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>
         }
         createMany: {
-          args: Prisma.employeesCreateManyArgs<ExtArgs>
+          args: Prisma.articleCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.employeesCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$employeesPayload>[]
+          args: Prisma.articleCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>[]
         }
         delete: {
-          args: Prisma.employeesDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$employeesPayload>
+          args: Prisma.articleDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>
         }
         update: {
-          args: Prisma.employeesUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$employeesPayload>
+          args: Prisma.articleUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>
         }
         deleteMany: {
-          args: Prisma.employeesDeleteManyArgs<ExtArgs>
+          args: Prisma.articleDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.employeesUpdateManyArgs<ExtArgs>
+          args: Prisma.articleUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.employeesUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$employeesPayload>[]
+          args: Prisma.articleUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>[]
         }
         upsert: {
-          args: Prisma.employeesUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$employeesPayload>
+          args: Prisma.articleUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>
         }
         aggregate: {
-          args: Prisma.EmployeesAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateEmployees>
+          args: Prisma.ArticleAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateArticle>
         }
         groupBy: {
-          args: Prisma.employeesGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.EmployeesGroupByOutputType>[]
+          args: Prisma.articleGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ArticleGroupByOutputType>[]
         }
         count: {
-          args: Prisma.employeesCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.EmployeesCountAggregateOutputType> | number
+          args: Prisma.articleCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ArticleCountAggregateOutputType> | number
         }
       }
     }
@@ -523,20 +523,16 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const EmployeesScalarFieldEnum = {
+export const ArticleScalarFieldEnum = {
   id: 'id',
-  firstname: 'firstname',
-  lastname: 'lastname',
-  age: 'age',
-  gender: 'gender',
-  department: 'department',
-  position: 'position',
-  salary: 'salary',
-  hiredate: 'hiredate',
-  isactive: 'isactive'
+  title: 'title',
+  content: 'content',
+  summary: 'summary',
+  createdat: 'createdat',
+  updatedat: 'updatedat'
 } as const
 
-export type EmployeesScalarFieldEnum = (typeof EmployeesScalarFieldEnum)[keyof typeof EmployeesScalarFieldEnum]
+export type ArticleScalarFieldEnum = (typeof ArticleScalarFieldEnum)[keyof typeof ArticleScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -598,20 +594,6 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
- * Reference to a field of type 'Decimal'
- */
-export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-    
-
-
-/**
- * Reference to a field of type 'Decimal[]'
- */
-export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-    
-
-
-/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -622,13 +604,6 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -732,7 +707,7 @@ export interface PrismaClientOptions {
   omit?: GlobalOmitConfig
 }
 export type GlobalOmitConfig = {
-  employees?: Prisma.employeesOmit
+  article?: Prisma.articleOmit
 }
 
 /* Types for Logging */
