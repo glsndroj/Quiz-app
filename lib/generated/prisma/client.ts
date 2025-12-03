@@ -30,7 +30,7 @@ export * from "./enums"
  * ```
  * const prisma = new PrismaClient()
  * // Fetch zero or more Articles
- * const articles = await prisma.article.findMany()
+ * const articles = await prisma.articles.findMany()
  * ```
  * 
  * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
@@ -45,7 +45,7 @@ path.join(__dirname, "libquery_engine-darwin.dylib.node")
 path.join(process.cwd(), "lib/generated/prisma/libquery_engine-darwin.dylib.node")
 
 /**
- * Model article
+ * Model articles
  * 
  */
-export type article = Prisma.articleModel
+export type articles = Prisma.articlesModel

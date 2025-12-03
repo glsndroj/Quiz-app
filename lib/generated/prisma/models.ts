@@ -8,5 +8,5 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/article'
+export type * from './models/articles'
 export type * from './commonInputTypes'

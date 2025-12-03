@@ -390,7 +390,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  article: 'article'
+  articles: 'articles'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -406,81 +406,81 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "article"
+    modelProps: "articles"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
-    article: {
-      payload: Prisma.$articlePayload<ExtArgs>
-      fields: Prisma.articleFieldRefs
+    articles: {
+      payload: Prisma.$articlesPayload<ExtArgs>
+      fields: Prisma.articlesFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.articleFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload> | null
+          args: Prisma.articlesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlesPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.articleFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>
+          args: Prisma.articlesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlesPayload>
         }
         findFirst: {
-          args: Prisma.articleFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload> | null
+          args: Prisma.articlesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlesPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.articleFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>
+          args: Prisma.articlesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlesPayload>
         }
         findMany: {
-          args: Prisma.articleFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>[]
+          args: Prisma.articlesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlesPayload>[]
         }
         create: {
-          args: Prisma.articleCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>
+          args: Prisma.articlesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlesPayload>
         }
         createMany: {
-          args: Prisma.articleCreateManyArgs<ExtArgs>
+          args: Prisma.articlesCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.articleCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>[]
+          args: Prisma.articlesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlesPayload>[]
         }
         delete: {
-          args: Prisma.articleDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>
+          args: Prisma.articlesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlesPayload>
         }
         update: {
-          args: Prisma.articleUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>
+          args: Prisma.articlesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlesPayload>
         }
         deleteMany: {
-          args: Prisma.articleDeleteManyArgs<ExtArgs>
+          args: Prisma.articlesDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.articleUpdateManyArgs<ExtArgs>
+          args: Prisma.articlesUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.articleUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>[]
+          args: Prisma.articlesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlesPayload>[]
         }
         upsert: {
-          args: Prisma.articleUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlePayload>
+          args: Prisma.articlesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$articlesPayload>
         }
         aggregate: {
-          args: Prisma.ArticleAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateArticle>
+          args: Prisma.ArticlesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateArticles>
         }
         groupBy: {
-          args: Prisma.articleGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ArticleGroupByOutputType>[]
+          args: Prisma.articlesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ArticlesGroupByOutputType>[]
         }
         count: {
-          args: Prisma.articleCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ArticleCountAggregateOutputType> | number
+          args: Prisma.articlesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ArticlesCountAggregateOutputType> | number
         }
       }
     }
@@ -523,7 +523,7 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const ArticleScalarFieldEnum = {
+export const ArticlesScalarFieldEnum = {
   id: 'id',
   title: 'title',
   content: 'content',
@@ -532,7 +532,7 @@ export const ArticleScalarFieldEnum = {
   updatedat: 'updatedat'
 } as const
 
-export type ArticleScalarFieldEnum = (typeof ArticleScalarFieldEnum)[keyof typeof ArticleScalarFieldEnum]
+export type ArticlesScalarFieldEnum = (typeof ArticlesScalarFieldEnum)[keyof typeof ArticlesScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -707,7 +707,7 @@ export interface PrismaClientOptions {
   omit?: GlobalOmitConfig
 }
 export type GlobalOmitConfig = {
-  article?: Prisma.articleOmit
+  articles?: Prisma.articlesOmit
 }
 
 /* Types for Logging */

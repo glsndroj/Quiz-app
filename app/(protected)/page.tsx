@@ -26,16 +26,6 @@ export default function Home() {
       <div>
         <ArticleGenerator />
       </div>
-      {/* <div className="flex gap-5">
-        {articles.map((e: any, i: number) => {
-          return (
-            <div key={i}>
-              <h1>{e.title}</h1>
-              <p>{e.content}</p>
-            </div>
-          );
-        })}
-      </div> */}
     </>
   );
 }

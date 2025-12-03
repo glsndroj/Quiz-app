@@ -39,7 +39,7 @@ export default function HistorySidebar() {
               {articles.map((article: Article) => (
                 <Link
                   key={article.id}
-                  href={`/quiz/${article.id}`}
+                  href={`/summary/${article.id}`}
                   className="block p-3  hover:bg-gray-200 rounded-lg transition duration-150 truncate text-sm"
                   title={article.title}
                 >

@@ -49,7 +49,7 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 
 
 export const ModelName = {
-  article: 'article'
+  articles: 'articles'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -68,7 +68,7 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const ArticleScalarFieldEnum = {
+export const ArticlesScalarFieldEnum = {
   id: 'id',
   title: 'title',
   content: 'content',
@@ -77,7 +77,7 @@ export const ArticleScalarFieldEnum = {
   updatedat: 'updatedat'
 } as const
 
-export type ArticleScalarFieldEnum = (typeof ArticleScalarFieldEnum)[keyof typeof ArticleScalarFieldEnum]
+export type ArticlesScalarFieldEnum = (typeof ArticlesScalarFieldEnum)[keyof typeof ArticlesScalarFieldEnum]
 
 
 export const SortOrder = {
