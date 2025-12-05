@@ -29,6 +29,7 @@ export default async function SummaryPage({ params }: SummaryPageProps) {
       <SummarizedContent
         initialContent={article.content}
         articleTitle={article.title}
+        articleSummary={article.summary}
       />
     </div>
   );

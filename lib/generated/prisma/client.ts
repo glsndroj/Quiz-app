@@ -49,3 +49,8 @@ path.join(process.cwd(), "lib/generated/prisma/libquery_engine-darwin.dylib.node
  * 
  */
 export type articles = Prisma.articlesModel
+/**
+ * Model Quiz
+ * 
+ */
+export type Quiz = Prisma.QuizModel

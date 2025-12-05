@@ -16,5 +16,24 @@ model articles {
   createdat DateTime? @default(now()) @db.Timestamp(6)
   updatedat DateTime? @default(now()) @db.Timestamp(6)
 
+  quizzes   Quiz[]
+}
+
+model Quiz {
+
+  id              Int      @id @default(autoincrement())
   
+
+  article         articles @relation(fields: [articlesId], references: [id], onDelete: Cascade)
+  articlesId      Int
+
+  questionText    String
+  correctAnswer   String
+
+  optionA         String
+  optionB         String
+  optionC         String
+  optionD         String
+
+  createdAt       DateTime @default(now())
 }

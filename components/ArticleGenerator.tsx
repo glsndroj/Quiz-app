@@ -55,7 +55,7 @@ export default function ArticleGenerator() {
           <h2 className="text-gray-600">Article Content</h2>
         </div>
         <textarea
-          className="border p-2 rounded-md h-fit pl-5"
+          className="border p-2 rounded-md pl-5 min-h-32"
           placeholder="Content..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
@@ -63,7 +63,7 @@ export default function ArticleGenerator() {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="bg-gray-300 text-white px-4 py-2 rounded-md hover:bg-gray-400"
+            className=" cursor-pointer bg-gray-300 text-white px-4 py-2 rounded-md hover:bg-gray-400"
           >
             Generate summary
           </button>

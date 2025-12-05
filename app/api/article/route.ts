@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import axios from "axios";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -7,8 +8,13 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { title, content } = body;
 
+    const summary = await axios.post("http://localhost:3000/api/summaryze", {
+      content,
+    });
+    console.log("Summary ", summary.data.summary);
+
     const articles = await prisma.articles.create({
-      data: { title, content },
+      data: { title, content, summary: summary.data.summary },
     });
     revalidatePath("/");
 

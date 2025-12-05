@@ -49,7 +49,8 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 
 
 export const ModelName = {
-  articles: 'articles'
+  articles: 'articles',
+  Quiz: 'Quiz'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -78,6 +79,21 @@ export const ArticlesScalarFieldEnum = {
 } as const
 
 export type ArticlesScalarFieldEnum = (typeof ArticlesScalarFieldEnum)[keyof typeof ArticlesScalarFieldEnum]
+
+
+export const QuizScalarFieldEnum = {
+  id: 'id',
+  articlesId: 'articlesId',
+  questionText: 'questionText',
+  correctAnswer: 'correctAnswer',
+  optionA: 'optionA',
+  optionB: 'optionB',
+  optionC: 'optionC',
+  optionD: 'optionD',
+  createdAt: 'createdAt'
+} as const
+
+export type QuizScalarFieldEnum = (typeof QuizScalarFieldEnum)[keyof typeof QuizScalarFieldEnum]
 
 
 export const SortOrder = {
