@@ -1,37 +1,60 @@
 import prisma from "@/lib/prisma";
-import axios from "axios";
+import { generateQuiz } from "@/utils/generateQuiz";
+import { generateSummary } from "@/utils/generateSummary";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { title, content } = body;
+    const { title, content } = await req.json();
 
-    const summary = await axios.post("http://localhost:3000/api/summaryze", {
-      content,
-    });
-    console.log("Summary ", summary.data.summary);
+    const summaryText = await generateSummary(content);
+
+    if (!summaryText || summaryText.trim().length < 10) {
+      throw new Error("AI failed to generate a valid summary text.");
+    }
+
+    const quizQuestions = await generateQuiz(summaryText);
 
     const articles = await prisma.articles.create({
-      data: { title, content, summary: summary.data.summary },
+      data: { title, content, summary: summaryText },
     });
+
+    for (const q of quizQuestions) {
+      await prisma.quiz.create({
+        data: {
+          articlesId: articles.id,
+          questionText: q.question,
+          correctAnswer: q.correct_answer,
+          optionA: q.options[0],
+          optionB: q.options[1],
+          optionC: q.options[2],
+          optionD: q.options[3],
+        },
+      });
+    }
     revalidatePath("/");
 
-    return NextResponse.json({ data: articles, status: 201 });
+    return NextResponse.json({
+      data: articles,
+      quizCount: quizQuestions.length,
+      status: 201,
+    });
   } catch (error) {
+    console.error("Quiz POST Error: ", error);
+
     return NextResponse.json(
-      { error: String(error) },
-      {
-        status: 500,
-      }
+      { error: "Failed to create article/quiz: " + String(error) },
+      { status: 500 }
     );
   }
 }
 
 export const GET = async () => {
   try {
-    const res = await prisma.articles.findMany();
+    const res = await prisma.articles.findMany({
+      include: { quizzes: true },
+    });
     return NextResponse.json(res);
   } catch (error) {
     return NextResponse.json(

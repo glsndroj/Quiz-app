@@ -22,6 +22,8 @@ export default async function SummaryPage({ params }: SummaryPageProps) {
     return <div className="p-5">Article not found</div>;
   }
 
+  console.log("Article ID: ", articleId);
+
   const initialContent = article.content || "";
   const articleTitle = article.title || "No Title";
   return (
@@ -30,6 +32,7 @@ export default async function SummaryPage({ params }: SummaryPageProps) {
         initialContent={article.content}
         articleTitle={article.title}
         articleSummary={article.summary}
+        articleId={articleId}
       />
     </div>
   );
