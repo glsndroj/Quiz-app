@@ -10,7 +10,7 @@ export default function Home() {
   useEffect(() => {
     const getArticle = async () => {
       try {
-        const res = await axios.get("/api/article");
+        const res = await axios.get("http://localhost:3000/api/article");
         setArticles(res.data);
       } catch (error) {
         console.log("error fetching articles: ", error);

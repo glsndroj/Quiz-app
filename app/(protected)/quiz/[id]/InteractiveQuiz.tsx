@@ -107,7 +107,7 @@ export default function InteractiveQuiz({ quizData }: InteractiveQuizProps) {
         className={`p-4 mb-3 text-left w-full border rounded-lg transition-all duration-300 
                             shadow-md 
                             ${bgColor} ${
-          disabled ? "cursor-default" : "hover:bg-gray-50"
+          disabled ? "cursor-default" : "hover:bg-gray-100"
         }`}
       >
         <span className="font-semibold mr-3">{optionLetter}.</span> {option}
@@ -145,16 +145,17 @@ export default function InteractiveQuiz({ quizData }: InteractiveQuizProps) {
 
   // 💡 Асуултыг харуулах үндсэн хэсэг
   return (
-    <div className="max-w-xl mx-auto">
-      <h2 className="text-xl font-bold mb-4">
-        Question {currentQuestionIndex + 1} / {quizData.length}
-      </h2>
+    <div className="w-[900px] mx-auto">
+      <div className="flex justify-between px-10">
+        <p className="text-lg mb-6 font-semibold w-[750px]">
+          {currentQuestion.questionText}
+        </p>
+        <p className="text-lg mb-6 font-semibold">
+          {currentQuestionIndex + 1} / {quizData.length}
+        </p>
+      </div>
 
-      <p className="text-lg mb-6 font-semibold">
-        {currentQuestion.questionText}
-      </p>
-
-      <div className="grid grid-cols-2 gap-4">{options.map(renderOption)}</div>
+      <div className="grid grid-cols-2 gap-7">{options.map(renderOption)}</div>
     </div>
   );
 }
