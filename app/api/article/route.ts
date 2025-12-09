@@ -14,22 +14,33 @@ export async function POST(req: NextRequest) {
       throw new Error("AI failed to generate a valid summary text.");
     }
 
-    const quizQuestions = await generateQuiz(summaryText);
+    const quizQuestions = await generateQuiz(content);
 
     const articles = await prisma.articles.create({
       data: { title, content, summary: summaryText },
     });
 
     for (const q of quizQuestions) {
+      const correctLetter = q.correct_answer.charAt(0);
+
+      const cleanOption = (option: string) => {
+        const match = option.match(/^[A-D]\) /);
+        if (match) {
+          return option.substring(match[0].length).trim();
+        }
+        return option.trim();
+      };
+
+      const cleanedOptions = q.options.map(cleanOption);
       await prisma.quiz.create({
         data: {
           articlesId: articles.id,
           questionText: q.question,
-          correctAnswer: q.correct_answer,
-          optionA: q.options[0],
-          optionB: q.options[1],
-          optionC: q.options[2],
-          optionD: q.options[3],
+          correctAnswer: correctLetter,
+          optionA: cleanedOptions[0],
+          optionB: cleanedOptions[1],
+          optionC: cleanedOptions[2],
+          optionD: cleanedOptions[3],
         },
       });
     }

@@ -1,7 +1,8 @@
 import { QuizIcon } from "@/icons/icons";
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import InteractiveQuiz from "./InteractiveQuiz";
+
+import QuizContainer from "./quizContainer";
 import {
   Dialog,
   DialogClose,
@@ -42,7 +43,6 @@ export async function QuizPage({ params }: { params: { id: string } }) {
   if (!articleData) {
     notFound();
   }
-  console.log("Fetched quizzes count: ", articleData?.quizzes?.length);
 
   const quizQuestions: QuizData[] = articleData.quizzes as QuizData[];
 
@@ -88,7 +88,7 @@ export async function QuizPage({ params }: { params: { id: string } }) {
           </h2>
         </div>
 
-        <InteractiveQuiz quizData={quizQuestions} />
+        <QuizContainer quizData={quizQuestions} articleId={articleId} />
       </div>
     </>
   );

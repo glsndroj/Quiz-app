@@ -4,6 +4,8 @@ const apiKey = process.env.GEMINI_API_KEY;
 const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 interface QuizQuestion {
+  cleanedOptions: any;
+  correctLetter: any;
   question: string;
   options: [string, string, string, string];
   correct_answer: string;
