@@ -1,9 +1,14 @@
 "use client";
 import React, { useState, useCallback, useMemo } from "react";
-
 import InteractiveQuiz from "./InteractiveQuiz";
-import QuizResult from "../../result/[id]/page";
 import { useRouter } from "next/navigation";
+import { CorrectAnswer } from "@/icons/icons";
+
+interface QuizResultProps {
+  score: number;
+  totalQuestions: number;
+  onRestart: () => void;
+}
 
 interface QuizData {
   id: number;
@@ -20,13 +25,15 @@ interface QuizContainerProps {
   articleId: number;
 }
 
-export default function QuizContainer({ quizData }: QuizContainerProps) {
+export default function QuizContainer({
+  quizData,
+  articleId,
+}: QuizContainerProps) {
+  const router = useRouter();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<Record<number, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
-
-  const router = useRouter();
 
   if (quizData.length === 0) {
     return (
@@ -73,29 +80,25 @@ export default function QuizContainer({ quizData }: QuizContainerProps) {
         setIsAnswerSelected(false);
       } else {
         const score = calculateScore;
-        const totalQuestions = quizData.length;
+        const total = quizData.length;
 
-        router.push(`/result/[id]?score=X&total=Y`);
+        const resultDetails = quizData.map((q) => ({
+          correctAnswer: q.correctAnswer,
+        }));
+
+        sessionStorage.setItem("quizResults", JSON.stringify(resultDetails));
+
+        router.push(`/result/${articleId}?score=${score}&total=${total}`);
       }
     }, 500);
   };
 
-  // const handleRestart = () => {
-  //   setCurrentQuestionIndex(0);
-  //   setUserAnswers({});
-  //   setIsSubmitted(false);
-  //   setIsAnswerSelected(false);
-  // };
-
-  // if (isSubmitted) {
-  //   return (
-  //     <QuizResult
-  //       score={calculateScore}
-  //       totalQuestions={quizData.length}
-  //       onRestart={handleRestart}
-  //     />
-  //   );
-  // }
+  const handleRestart = () => {
+    setCurrentQuestionIndex(0);
+    setUserAnswers({});
+    setIsSubmitted(false);
+    setIsAnswerSelected(false);
+  };
 
   return (
     <InteractiveQuiz

@@ -67,7 +67,7 @@ export default function InteractiveQuiz({
 
   return (
     <>
-      <div className="w-[800px] p-5 bg-white flex justify-between ">
+      <div className="w-[800px] px-5 bg-white flex justify-between ">
         <p className="text-2xl max-w-2xl  font-medium text-gray-800">
           {currentQuestion.questionText}
         </p>
@@ -75,7 +75,9 @@ export default function InteractiveQuiz({
           {currentQuestionIndex + 1} / {quizData.length}
         </p>
       </div>
-      <div className="grid grid-cols-2 gap-7 max-w-3xl">{options.map(renderOption)}</div>
+      <div className="grid grid-cols-2 gap-7 max-w-3xl">
+        {options.map(renderOption)}
+      </div>
     </>
   );
 }
