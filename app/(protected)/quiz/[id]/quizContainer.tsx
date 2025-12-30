@@ -4,11 +4,7 @@ import InteractiveQuiz from "./InteractiveQuiz";
 import { useRouter } from "next/navigation";
 import { CorrectAnswer } from "@/icons/icons";
 
-interface QuizResultProps {
-  score: number;
-  totalQuestions: number;
-  onRestart: () => void;
-}
+
 
 interface QuizData {
   id: number;
@@ -44,51 +40,52 @@ export default function QuizContainer({
   }
 
   const currentQuestion = quizData[currentQuestionIndex];
-
-  const isAnswerCorrect = useCallback(
-    (question: QuizData, userAnswer: string | undefined) => {
-      if (!userAnswer) return false;
-      return userAnswer.toUpperCase() === question.correctAnswer.toUpperCase();
-    },
-    []
-  );
-
-  const calculateScore = useMemo(() => {
-    let correctCount = 0;
-    quizData.forEach((q) => {
-      const userAnswer = userAnswers[q.id];
-      if (isAnswerCorrect(q, userAnswer)) {
-        correctCount++;
-      }
-    });
-    return correctCount;
-  }, [quizData, userAnswers, isAnswerCorrect]);
-
+  
   const handleAnswerSelect = (optionLetter: string) => {
-    if (isSubmitted) return;
+    if (isAnswerSelected) return;
 
-    setUserAnswers((prev) => ({
-      ...prev,
+   
+    const updatedAnswers = {
+      ...userAnswers,
       [currentQuestion.id]: optionLetter,
-    }));
+    };
 
+    setUserAnswers(updatedAnswers);
     setIsAnswerSelected(true);
 
     setTimeout(() => {
       if (currentQuestionIndex < quizData.length - 1) {
-        setCurrentQuestionIndex((i) => i + 1);
+        setCurrentQuestionIndex((prev) => prev + 1);
         setIsAnswerSelected(false);
       } else {
-        const score = calculateScore;
-        const total = quizData.length;
+      
+        const finalResults = quizData.map((q) => {
+          const userSelectedLetter = updatedAnswers[q.id];
 
-        const resultDetails = quizData.map((q) => ({
-          correctAnswer: q.correctAnswer,
-        }));
+          
+          let selectedText = "";
+          if (userSelectedLetter === "A") selectedText = q.optionA;
+          else if (userSelectedLetter === "B") selectedText = q.optionB;
+          else if (userSelectedLetter === "C") selectedText = q.optionC;
+          else if (userSelectedLetter === "D") selectedText = q.optionD;
 
-        sessionStorage.setItem("quizResults", JSON.stringify(resultDetails));
+          return {
+            id: q.id,
+            userAnswer: userSelectedLetter, 
+            selectedText: selectedText, 
+            correctAnswer: q.correctAnswer, 
+          };
+        });
 
-        router.push(`/result/${articleId}?score=${score}&total=${total}`);
+    
+        const finalScore = finalResults.filter(
+          (r) => r.userAnswer?.toUpperCase() === r.correctAnswer?.toUpperCase()
+        ).length;
+
+        sessionStorage.setItem("quizResults", JSON.stringify(finalResults));
+        router.push(
+          `/result/${articleId}?score=${finalScore}&total=${quizData.length}`
+        );
       }
     }, 500);
   };

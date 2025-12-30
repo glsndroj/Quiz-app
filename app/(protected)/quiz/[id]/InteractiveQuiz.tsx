@@ -39,6 +39,7 @@ export default function InteractiveQuiz({
   const renderOption = (option: string, index: number) => {
     const optionLetter = getOptionLetter(index);
     const isSelected = userAnswers[currentQuestion.id] === optionLetter;
+    
 
     let bgColor = isSelected
       ? "bg-blue-100 border-blue-500"

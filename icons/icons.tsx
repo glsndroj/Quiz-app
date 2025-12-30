@@ -1,3 +1,4 @@
+
 export function QuizIcon() {
   return (
     <div>
@@ -112,3 +113,5 @@ export function WrongAnswer() {
     </svg>
   );
 }
+
+

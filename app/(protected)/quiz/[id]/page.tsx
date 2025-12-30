@@ -25,8 +25,13 @@ interface QuizData {
   optionD: string;
 }
 
-export async function QuizPage({ params }: { params: { id: string } }) {
-  const articleId = parseInt(params.id);
+export async function QuizPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const resolvedParams = await params;
+  const articleId = parseInt(resolvedParams.id);
   if (isNaN(articleId)) {
     return <div>Error: Article ID is wrong.</div>;
   }

@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { Spinner } from "@/components/ui/spinner";
+import { useEffect } from "react";
+import axios from "axios";
 
 type Article = {
   id: number;
@@ -17,7 +19,23 @@ type Article = {
 };
 
 export default function HistorySidebar() {
-  const { articles, isLoaded, state } = useSidebar();
+  const { articles, isLoaded, state, setArticles, setIsLoaded } = useSidebar();
+
+  useEffect(() => {
+    if (isLoaded && articles.length > 0) return;
+
+    const getArticles = async () => {
+      try {
+        const res = await axios.get("/api/article");
+        setArticles(res.data);
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      } finally {
+        setIsLoaded(true);
+      }
+    };
+    getArticles();
+  }, [isLoaded, articles.length, setArticles, setIsLoaded]);
 
   return (
     <Sidebar className="mt-15">

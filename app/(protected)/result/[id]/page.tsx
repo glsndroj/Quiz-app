@@ -5,145 +5,97 @@ import { useEffect, useState } from "react";
 
 interface QuestionResult {
   id: number;
-  questionText: string;
-  options: string[];
-  correctAnswer: string;
   userAnswer: string;
+  selectedText: string;
+  correctAnswer: string;
 }
-
-const getOptionLetter = (index: number) => ["A", "B", "C", "D"][index];
 
 export default function QuizResultPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-
   const params = useParams();
   const articleId = params.id as string;
-
   const [result, setResult] = useState<QuestionResult[]>([]);
 
-  const score = searchParams.get("score");
-  const totalQuestions = searchParams.get("total");
-
-  const correctCount = score ? parseInt(score) : 0;
-  const totalCount = totalQuestions ? parseInt(totalQuestions) : 0;
+  const score = searchParams.get("score") || "0";
+  const total = searchParams.get("total") || "0";
 
   useEffect(() => {
-    const storedResult = sessionStorage.getItem("quizResults");
-    if (storedResult) {
-      setResult(JSON.parse(storedResult));
+    const data = sessionStorage.getItem("quizResults");
+    if (data) {
+      setResult(JSON.parse(data));
     }
   }, []);
 
-  const handleBackToQuiz = () => {
-    router.back();
-  };
-
-  const handleFinishQuiz = () => {
-    router.push(`/summary/${articleId}`);
-  };
-
   return (
-    <div className="w-[800px] max-w-xl mx-auto mt-20 p-10 border rounded-xl shadow-lg bg-white">
-      <div className="flex items-center gap-5 border-b pb-4 mb-6">
-        <QuizIcon />
-        <h1 className="text-4xl font-extrabold text-gray-800">Result</h1>
+    <div className="w-[800px] max-w-xl mx-auto mt-20 p-10 border rounded-2xl shadow-xl bg-white">
+      <div className="flex items-center justify-between gap-5 border-b pb-4 mb-6">
+        <div className="flex items-center gap-4">
+          <QuizIcon />
+          <h1 className="text-4xl font-extrabold ">Result</h1>
+        </div>
+
+        <div className="flex justify-end">
+          <span className="text-4xl font-extrabold">
+            {score} / {total}
+          </span>
+        </div>
       </div>
 
-      <p className="text-gray-600">Let's see what you did</p>
+      <span className="text-gray-500">Let's see what you did.</span>
 
-      <div className="p-5 flex justify-center mb-8">
-        <span className="text-4xl font-black ">
-          {correctCount} / {totalCount}
-        </span>
-      </div>
-
-      <div className="space-y-5">
+      <div className="space-y-4">
         {result.map((q, index) => {
-          console.log("Зөв Хариулт (correctAnswer):", q.correctAnswer);
-          console.log("Хэрэглэгчийн Хариулт (userAnswer):", q.userAnswer);
-
-          console.log(
-            "Зөв Эсэх (isUserCorrect):",
-            q.userAnswer === q.correctAnswer
-          );
-          const isUserCorrect = q.userAnswer === q.correctAnswer;
-
-          let optionsToDisplay: {
-            optionText: string;
-            optionLetter: string;
-            isCorrect: boolean;
-            isUserSelected: boolean;
-          }[] = [];
-
-          if (q.options && Array.isArray(q.options)) {
-            q.options.forEach((optionText, i) => {
-              const optionLetter = getOptionLetter(i);
-              const isCorrect = optionLetter === q.correctAnswer;
-              const isUserSelected = optionLetter === q.userAnswer;
-
-              if (isCorrect || isUserSelected) {
-                optionsToDisplay.push({
-                  optionText,
-                  optionLetter,
-                  isCorrect,
-                  isUserSelected,
-                });
-              }
-            });
-          }
+          const isCorrect =
+            q.userAnswer?.toUpperCase() === q.correctAnswer?.toUpperCase();
 
           return (
-            <div key={q.id} className="p-3">
-              <div className="flex items-start gap-3 mb-4">
-                {isUserCorrect ? <CorrectAnswer /> : <WrongAnswer />}
-
-                <p className="font-semibold text-lg text-gray-800">
-                  {index + 1}. {q.questionText}
-                </p>
+            <div
+              key={index}
+              className="flex items-center gap-4 p-5  rounded-xl shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="scale-125">
+                {isCorrect ? <CorrectAnswer /> : <WrongAnswer />}
               </div>
+              <span className="font-bold  text-xl w-8">{q.userAnswer}.</span>
 
-              <div className=" space-y-2">
-                {optionsToDisplay.map((option, i) => {
-                  let statusIcon = null;
-
-                  if (option.isCorrect) {
-                    statusIcon = <CorrectAnswer />;
-                  } else if (option.isUserSelected && !option.isCorrect) {
-                    statusIcon = <WrongAnswer />;
-                  }
-
-                  return (
-                    <div
-                      key={i}
-                      className={`flex items-center p-3 border rounded-md transition duration-200`}
-                    >
-                      <span className="font-bold mr-3">
-                        {option.optionLetter}.
-                      </span>
-                      <span className="flex-grow">{option.optionText}</span>
-                      <span className="ml-auto">{statusIcon}</span>
-                    </div>
-                  );
-                })}
+              <div className="flex items-center grow gap-4">
+                <div
+                  className={`text-lg font-medium ${
+                    isCorrect ? "text-green-700" : "text-red-700"
+                  }`}
+                >
+                  <span className="font-bold">{q.userAnswer}.</span>
+                  <span>{q.selectedText}</span>
+                </div>
               </div>
             </div>
           );
         })}
       </div>
 
-      <div className="flex justify-center gap-7 mt-10">
+      <div className="flex justify-center gap-7 mt-12">
         <button
-          onClick={handleBackToQuiz}
-          className=" p-3 w-[200px] bg-gray-400 hover:bg-gray-500  font-semibold rounded-md shadow-md"
+          onClick={() => router.back()}
+          className="py-2 px-4 w-[200px] bg-gray-100 cursor-pointer  font-bold rounded-md hover:bg-gray-300 transition-all active:scale-95"
         >
           Quiz again
         </button>
         <button
-          onClick={handleFinishQuiz}
-          className=" p-3 w-[200px] hover:bg-gray-200 font-semibold rounded-md shadow-md"
+          onClick={() => {
+            sessionStorage.removeItem("quizResults");
+            router.push(`/summary/${articleId}`);
+          }}
+          className={`
+            bg-black text-white py-2 px-4 w-[200px] rounded-md transition-all 
+            ${
+              articleId
+                ? "hover:bg-gray-800 cursor-pointer"
+                : "bg-gray-400 cursor-not-allowed"
+            }
+        `}
         >
-          Finish
+          Finish quiz
         </button>
       </div>
     </div>

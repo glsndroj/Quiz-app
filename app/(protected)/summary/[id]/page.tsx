@@ -3,12 +3,14 @@ import SummarizedContent from "@/components/SummarizedContent";
 import prisma from "@/lib/prisma";
 
 interface SummaryPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 export default async function SummaryPage({ params }: SummaryPageProps) {
-  const articleId = parseInt(params.id);
+  const { id } = await params;
+
+  const articleId = parseInt(id);
 
   if (isNaN(articleId)) {
     return <div className="p-5">Error</div>;
