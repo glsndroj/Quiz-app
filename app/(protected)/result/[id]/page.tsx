@@ -42,7 +42,7 @@ export default function QuizResultPage() {
         </div>
       </div>
 
-      <span className="text-gray-500">Let's see what you did.</span>
+      <span className="text-gray-500">{"Let's see what you did."}</span>
 
       <div className="space-y-4">
         {result.map((q, index) => {

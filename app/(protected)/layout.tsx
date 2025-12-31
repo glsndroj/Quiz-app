@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import HistorySidebar from "@/components/Sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { UserButton, SignedIn, ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export default function ProtectedLayout({
   children,
