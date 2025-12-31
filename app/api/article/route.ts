@@ -3,10 +3,16 @@ import { generateQuiz } from "@/utils/generateQuiz";
 import { generateSummary } from "@/utils/generateSummary";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
 
 export async function POST(req: NextRequest) {
   try {
     const { title, content } = await req.json();
+    const { userId } = await auth();
+
+    if (!userId) {
+      return NextResponse.json({ error: "Please login" }, { status: 401 });
+    }
 
     const summaryText = await generateSummary(content);
 
@@ -17,7 +23,7 @@ export async function POST(req: NextRequest) {
     const quizQuestions = await generateQuiz(content);
 
     const articles = await prisma.articles.create({
-      data: { title, content, summary: summaryText },
+      data: { title, content, summary: summaryText, authorId: userId },
     });
 
     for (const q of quizQuestions) {

@@ -13,6 +13,7 @@ model articles {
   title     String?   @db.VarChar(100)
   content   String?
   summary   String?
+  authorId  String?   
   createdat DateTime? @default(now()) @db.Timestamp(6)
   updatedat DateTime? @default(now()) @db.Timestamp(6)
 
