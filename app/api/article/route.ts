@@ -67,7 +67,7 @@ export const GET = async () => {
       include: { quizzes: true },
     });
     return NextResponse.json(res);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to fetch articles due to an internal server issue." },
       { status: 500 }
@@ -75,16 +75,23 @@ export const GET = async () => {
   }
 };
 
-export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(req: Request) {
   try {
-    const articleId = parseInt(params.id);
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Article ID is required in query params!" },
+        { status: 400 }
+      );
+    }
+
+    const articleId = parseInt(id);
 
     if (isNaN(articleId)) {
       return NextResponse.json(
-        { error: "Invalid article ID!" },
+        { error: "Invalid article ID format!" },
         { status: 400 }
       );
     }
@@ -105,14 +112,13 @@ export async function DELETE(
         id: articleId,
       },
     });
-    console.log("DELETED", deletedArticle);
 
+    console.log("DELETED", deletedArticle);
     return NextResponse.json(deletedArticle, { status: 200 });
   } catch (error) {
     console.error("Error during deletion process: ", error);
-
     return NextResponse.json(
-      { error: "Failed to delete article due to an internal server issue." },
+      { error: "Internal server error during deletion." },
       { status: 500 }
     );
   }

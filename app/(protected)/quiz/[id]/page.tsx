@@ -25,7 +25,7 @@ interface QuizData {
   optionD: string;
 }
 
-export async function QuizPage({
+export default async function QuizPage({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -33,7 +33,7 @@ export async function QuizPage({
   const resolvedParams = await params;
   const articleId = parseInt(resolvedParams.id);
   if (isNaN(articleId)) {
-    return <div>Error: Article ID is wrong.</div>;
+    return <div>Error: Article ID is wrong</div>;
   }
 
   const articleData = await prisma.articles.findUnique({
@@ -67,8 +67,7 @@ export async function QuizPage({
               <DialogHeader>
                 <DialogTitle>Are you sure?</DialogTitle>
                 <DialogDescription className="text-red-500">
-                  If you press 'Cancel', this quiz will restart from the
-                  beginning.
+                  If you press Cancel this quiz will restart from the beginning
                 </DialogDescription>
               </DialogHeader>
               <div className="flex justify-between px-10">
@@ -98,5 +97,3 @@ export async function QuizPage({
     </>
   );
 }
-
-export default QuizPage;

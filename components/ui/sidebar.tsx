@@ -151,10 +151,6 @@ function SidebarProvider({
       setArticles,
       isLoaded,
       setIsLoaded,
-      articles,
-      setArticles,
-      isLoaded,
-      setIsLoaded,
     ]
   );
 

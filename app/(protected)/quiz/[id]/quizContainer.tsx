@@ -1,10 +1,7 @@
 "use client";
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState } from "react";
 import InteractiveQuiz from "./InteractiveQuiz";
 import { useRouter } from "next/navigation";
-import { CorrectAnswer } from "@/icons/icons";
-
-
 
 interface QuizData {
   id: number;
@@ -28,7 +25,7 @@ export default function QuizContainer({
   const router = useRouter();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<Record<number, string>>({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
 
   if (quizData.length === 0) {
@@ -40,11 +37,10 @@ export default function QuizContainer({
   }
 
   const currentQuestion = quizData[currentQuestionIndex];
-  
+
   const handleAnswerSelect = (optionLetter: string) => {
     if (isAnswerSelected) return;
 
-   
     const updatedAnswers = {
       ...userAnswers,
       [currentQuestion.id]: optionLetter,
@@ -58,11 +54,9 @@ export default function QuizContainer({
         setCurrentQuestionIndex((prev) => prev + 1);
         setIsAnswerSelected(false);
       } else {
-      
         const finalResults = quizData.map((q) => {
           const userSelectedLetter = updatedAnswers[q.id];
 
-          
           let selectedText = "";
           if (userSelectedLetter === "A") selectedText = q.optionA;
           else if (userSelectedLetter === "B") selectedText = q.optionB;
@@ -71,13 +65,12 @@ export default function QuizContainer({
 
           return {
             id: q.id,
-            userAnswer: userSelectedLetter, 
-            selectedText: selectedText, 
-            correctAnswer: q.correctAnswer, 
+            userAnswer: userSelectedLetter,
+            selectedText: selectedText,
+            correctAnswer: q.correctAnswer,
           };
         });
 
-    
         const finalScore = finalResults.filter(
           (r) => r.userAnswer?.toUpperCase() === r.correctAnswer?.toUpperCase()
         ).length;
@@ -88,13 +81,6 @@ export default function QuizContainer({
         );
       }
     }, 500);
-  };
-
-  const handleRestart = () => {
-    setCurrentQuestionIndex(0);
-    setUserAnswers({});
-    setIsSubmitted(false);
-    setIsAnswerSelected(false);
   };
 
   return (

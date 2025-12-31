@@ -26,8 +26,6 @@ export default async function SummaryPage({ params }: SummaryPageProps) {
 
   console.log("Article ID: ", articleId);
 
-  const initialContent = article.content || "";
-  const articleTitle = article.title || "No Title";
   return (
     <div>
       <SummarizedContent
